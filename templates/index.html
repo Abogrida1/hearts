@@ -2,96 +2,199 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تحميل فيديوهات YouTube</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 تحميل فيديوهات YouTube</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+    </div>
+
     <div class="container">
-        <header>
-            <h1><i class="fab fa-youtube"></i> تحميل فيديوهات اليوتيوب</h1>
-            <p>قم بلصق رابط الفيديو وسنقوم بتحميله لك</p>
+        <!-- Header Section -->
+        <header class="hero-header">
+            <div class="logo-container">
+                <div class="youtube-logo">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <h1>تحميل فيديوهات YouTube</h1>
+            </div>
+            <p class="hero-subtitle">قم بلصق رابط الفيديو وسنقوم بتحميله لك مباشرة بدون أدوات خارجية</p>
         </header>
 
-        <main>
-            <div class="input-section">
-                <div class="url-input">
-                    <input type="text" id="videoUrl" placeholder="أدخل رابط فيديو اليوتيوب هنا..." />
-                    <button id="getInfoBtn" onclick="getVideoInfo()">
-                        <i class="fas fa-search"></i> البحث عن الفيديو
-                    </button>
-                </div>
-            </div>
-
-            <div id="loading" class="loading hidden">
-                <div class="loader">
-                    <div class="truckWrapper">
-                        <div class="truckBody">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 198 93" class="trucksvg">
-                                <path stroke-width="3" stroke="#282828" fill="#F83D3D" d="M135 22.5H177.264C178.295 22.5 179.22 23.133 179.594 24.0939L192.33 56.8443C192.442 57.1332 192.5 57.4404 192.5 57.7504V89C192.5 90.3807 191.381 91.5 190 91.5H135C133.619 91.5 132.5 90.3807 132.5 89V25C132.5 23.6193 133.619 22.5 135 22.5Z"></path>
-                                <path stroke-width="3" stroke="#282828" fill="#7D7C7C" d="M146 33.5H181.741C182.779 33.5 183.709 34.1415 184.078 35.112L190.538 52.112C191.16 53.748 189.951 55.5 188.201 55.5H146C144.619 55.5 143.5 54.3807 143.5 53V36C143.5 34.6193 144.619 33.5 146 33.5Z"></path>
-                                <path stroke-width="2" stroke="#282828" fill="#282828" d="M150 65C150 65.39 149.763 65.8656 149.127 66.2893C148.499 66.7083 147.573 67 146.5 67C145.427 67 144.501 66.7083 143.873 66.2893C143.237 65.8656 143 65.39 143 65C143 64.61 143.237 64.1344 143.873 63.7107C144.501 63.2917 145.427 63 146.5 63C147.573 63 148.499 63.2917 149.127 63.7107C149.763 64.1344 150 64.61 150 65Z"></path>
-                                <rect stroke-width="2" stroke="#282828" fill="#FFFCAB" rx="1" height="7" width="5" y="63" x="187"></rect>
-                                <rect stroke-width="2" stroke="#282828" fill="#282828" rx="1" height="11" width="4" y="81" x="193"></rect>
-                                <rect stroke-width="3" stroke="#282828" fill="#DFDFDF" rx="2.5" height="90" width="121" y="1.5" x="6.5"></rect>
-                                <rect stroke-width="2" stroke="#282828" fill="#DFDFDF" rx="2" height="4" width="6" y="84" x="1"></rect>
-                            </svg>
-                        </div>
-                        <div class="truckTires">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 30 30" class="tiresvg">
-                                <circle stroke-width="3" stroke="#282828" fill="#282828" r="13.5" cy="15" cx="15"></circle>
-                                <circle fill="#DFDFDF" r="7" cy="15" cx="15"></circle>
-                            </svg>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 30 30" class="tiresvg">
-                                <circle stroke-width="3" stroke="#282828" fill="#282828" r="13.5" cy="15" cx="15"></circle>
-                                <circle fill="#DFDFDF" r="7" cy="15" cx="15"></circle>
-                            </svg>
-                        </div>
-                        <div class="road"></div>
-                        <svg xml:space="preserve" viewBox="0 0 453.459 453.459" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" id="Capa_1" version="1.1" fill="#000000" class="lampPost">
-                            <path d="M252.882,0c-37.781,0-68.686,29.953-70.245,67.358h-6.917v8.954c-26.109,2.163-45.463,10.011-45.463,19.366h9.993c-1.65,5.146-2.507,10.54-2.507,16.017c0,28.956,23.558,52.514,52.514,52.514c28.956,0,52.514-23.558,52.514-52.514c0-5.478-0.856-10.872-2.506-16.017h9.992c0-9.354-19.352-17.204-45.463-19.366v-8.954h-6.149C200.189,38.779,223.924,16,252.882,16c29.952,0,54.32,24.368,54.32,54.32c0,28.774-11.078,37.009-25.105,47.437c-17.444,12.968-37.216,27.667-37.216,78.884v113.914h-0.797c-5.068,0-9.174,4.108-9.174,9.177c0,2.844,1.293,5.383,3.321,7.066c-3.432,27.933-26.851,95.744-8.226,115.459v11.202h45.75v-11.202c18.625-19.715-4.794-87.527-8.227-115.459c2.029-1.683,3.322-4.223,3.322-7.066c0-5.068-4.107-9.177-9.176-9.177h-0.795V196.641c0-43.174,14.942-54.283,30.762-66.043c14.793-10.997,31.559-23.461,31.559-60.277C323.202,31.545,291.656,0,252.882,0zM232.77,111.694c0,23.442-19.071,42.514-42.514,42.514c-23.442,0-42.514-19.072-42.514-42.514c0-5.531,1.078-10.957,3.141-16.017h78.747C231.693,100.736,232.77,106.162,232.77,111.694z"></path>
-                        </svg>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Search Section -->
+            <section class="search-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-link search-icon"></i>
+                        <input type="text" id="videoUrl" placeholder="أدخل رابط فيديو YouTube هنا..." />
+                        <button id="getInfoBtn" onclick="getVideoInfo()" class="search-btn">
+                            <i class="fas fa-search"></i>
+                            <span>البحث</span>
+                        </button>
                     </div>
                 </div>
-                <p>جاري البحث عن الفيديو...</p>
-            </div>
+            </section>
 
-            <div id="downloadLoading" class="loading hidden">
-                <div class="simple-download-loader">
-                    <div class="download-spinner"></div>
-                    <p>جاري تحميل الفيديو...</p>
-                    <p style="font-size: 0.9rem; color: #666;">يرجى الانتظار، قد يستغرق التحميل بعض الوقت</p>
-                </div>
-            </div>
-
-            <div id="error" class="error hidden"></div>
-            
-            <div id="success" class="success hidden"></div>
-
-            <div id="videoInfo" class="video-info hidden">
-                <div class="video-header">
-                    <img id="thumbnail" src="" alt="صورة مصغرة للفيديو" />
-                    <div class="video-details">
-                        <h3 id="videoTitle"></h3>
-                        <p id="videoDuration"></p>
+            <!-- Loading Section -->
+            <section id="loading" class="loading-section hidden">
+                <div class="loading-container">
+                    <div class="loading-animation">
+                        <div class="loading-circle"></div>
+                        <div class="loading-text">جاري البحث عن الفيديو...</div>
                     </div>
                 </div>
+            </section>
 
-                <div class="formats-section">
-                    <h4>اختر جودة التحميل:</h4>
-                    <div id="formatsList" class="formats-list"></div>
+            <!-- Error Section -->
+            <section id="error" class="error-section hidden">
+                <div class="error-container">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="error-message"></div>
                 </div>
-            </div>
+            </section>
+
+            <!-- Success Section -->
+            <section id="success" class="success-section hidden">
+                <div class="success-container">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="success-message"></div>
+                </div>
+            </section>
+
+            <!-- Video Info Section -->
+            <section id="videoInfo" class="video-info-section hidden">
+                <div class="video-card">
+                    <!-- Video Header -->
+                    <div class="video-header">
+                        <div class="thumbnail-container">
+                            <img id="thumbnail" src="" alt="صورة مصغرة للفيديو" class="video-thumbnail" />
+                            <div class="thumbnail-overlay">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        </div>
+                        <div class="video-details">
+                            <h3 id="videoTitle" class="video-title"></h3>
+                            <div class="video-meta">
+                                <div class="author-info">
+                                    <i class="fas fa-user"></i>
+                                    <span id="videoAuthor"></span>
+                                </div>
+                                <div class="video-id">
+                                    <i class="fas fa-fingerprint"></i>
+                                    <span id="videoId"></span>
+                                </div>
+                                <div class="video-duration">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="videoDuration"></span>
+                                </div>
+                                <div class="video-views">
+                                    <i class="fas fa-eye"></i>
+                                    <span id="videoViews"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formats Section -->
+                    <div class="formats-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-list"></i>
+                            خيارات التحميل المتاحة
+                        </h4>
+                        <div id="formatsList" class="formats-grid"></div>
+                    </div>
+
+                    <!-- Download Buttons Section -->
+                    <div class="download-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-download"></i>
+                            تحميل الفيديو
+                        </h4>
+                        <div class="download-buttons">
+                            <button id="audioDownload" class="download-btn audio-btn" onclick="downloadFile('audio')">
+                                <div class="btn-icon">
+                                    <i class="fas fa-music"></i>
+                                </div>
+                                <div class="btn-content">
+                                    <span class="btn-title">تحميل الصوت</span>
+                                    <span class="btn-subtitle">MP3 عالي الجودة</span>
+                                </div>
+                                <div class="btn-arrow">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                            </button>
+
+                            <button id="video720pDownload" class="download-btn video-btn" onclick="downloadFile('720p')">
+                                <div class="btn-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="btn-content">
+                                    <span class="btn-title">تحميل الفيديو</span>
+                                    <span class="btn-subtitle">720p HD</span>
+                                </div>
+                                <div class="btn-arrow">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                            </button>
+
+                            <button id="video480pDownload" class="download-btn video-btn" onclick="downloadFile('480p')">
+                                <div class="btn-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="btn-content">
+                                    <span class="btn-title">تحميل الفيديو</span>
+                                    <span class="btn-subtitle">480p SD</span>
+                                </div>
+                                <div class="btn-arrow">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
         </main>
 
-        <footer>
-            <p>by mohamed islam </p>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>تم التطوير بواسطة <strong>Mohamed Islam</strong></p>
+                    <p>نظام تحميل مدمج بدون أدوات خارجية</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-shield-alt"></i>
+                        آمن 100%
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-bolt"></i>
+                        سريع
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-mobile-alt"></i>
+                        متجاوب
+                    </a>
+                </div>
+            </div>
         </footer>
     </div>
 
     <script>
         let currentVideoUrl = '';
+        let currentVideoId = '';
+        let currentVideoTitle = '';
 
         function getVideoInfo() {
             const url = document.getElementById('videoUrl').value.trim();
@@ -100,10 +203,10 @@
                 return;
             }
 
-            // إضافة مؤشر تحميل على الزر
+            // Update button state
             const button = document.getElementById('getInfoBtn');
-            const originalText = button.innerHTML;
-            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري البحث...';
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>جاري البحث...</span>';
             button.disabled = true;
 
             showLoading();
@@ -125,7 +228,7 @@
             })
             .then(data => {
                 hideLoading();
-                button.innerHTML = originalText;
+                button.innerHTML = originalHTML;
                 button.disabled = false;
                 
                 if (data.error) {
@@ -137,7 +240,7 @@
             })
             .catch(error => {
                 hideLoading();
-                button.innerHTML = originalText;
+                button.innerHTML = originalHTML;
                 button.disabled = false;
                 showError('حدث خطأ في الاتصال: ' + error.message);
             });
@@ -146,52 +249,47 @@
         function displayVideoInfo(videoInfo) {
             document.getElementById('thumbnail').src = videoInfo.thumbnail;
             document.getElementById('videoTitle').textContent = videoInfo.title;
+            document.getElementById('videoAuthor').textContent = videoInfo.author;
+            document.getElementById('videoId').textContent = videoInfo.video_id;
             
-            const duration = Math.floor(videoInfo.duration / 60);
-            const seconds = videoInfo.duration % 60;
-            document.getElementById('videoDuration').textContent = 
-                `${duration}:${seconds.toString().padStart(2, '0')}`;
+            // Display duration
+            if (videoInfo.duration) {
+                const minutes = Math.floor(videoInfo.duration / 60);
+                const seconds = videoInfo.duration % 60;
+                document.getElementById('videoDuration').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                document.getElementById('videoDuration').textContent = 'غير معروف';
+            }
+            
+            // Display view count
+            if (videoInfo.view_count) {
+                const views = videoInfo.view_count.toLocaleString('ar-EG');
+                document.getElementById('videoViews').textContent = `${views} مشاهدة`;
+            } else {
+                document.getElementById('videoViews').textContent = 'غير معروف';
+            }
+
+            // Store video info globally
+            currentVideoId = videoInfo.video_id;
+            currentVideoTitle = videoInfo.title;
 
             const formatsList = document.getElementById('formatsList');
             formatsList.innerHTML = '';
 
             videoInfo.formats.forEach(format => {
                 const formatDiv = document.createElement('div');
-                formatDiv.className = 'format-item';
-                
-                let quality = 'Unknown';
-                let qualityClass = 'quality-unknown';
-                let additionalInfo = '';
-                
-                if (format.height > 0) {
-                    quality = `${format.height}p`;
-                    // تحديد لون الجودة
-                    if (format.height >= 1080) qualityClass = 'quality-hd';
-                    else if (format.height >= 720) qualityClass = 'quality-hd';
-                    else if (format.height >= 480) qualityClass = 'quality-sd';
-                    else qualityClass = 'quality-low';
-                    
-                    // إضافة معلومات إضافية
-                    if (format.fps > 0) additionalInfo += ` ${format.fps}fps`;
-                    if (format.width > 0) additionalInfo += ` ${format.width}×${format.height}`;
-                } else if (format.type === 'audio') {
-                    quality = format.display_name || 'صوت فقط';
-                    qualityClass = 'quality-audio';
-                }
-                
-                const size = format.filesize > 0 ? formatFileSize(format.filesize) : 'Unknown';
-                const ext = format.ext.toUpperCase();
+                formatDiv.className = 'format-card';
                 
                 formatDiv.innerHTML = `
-                    <div class="format-info">
-                        <span class="quality ${qualityClass}">${quality}</span>
-                        <span class="extension">${ext}</span>
-                        <span class="size">${size}</span>
-                        ${additionalInfo ? `<span class="additional-info">${additionalInfo}</span>` : ''}
+                    <div class="format-icon">
+                        <i class="fas fa-${format.type === 'audio' ? 'music' : 'video'}"></i>
                     </div>
-                    <button onclick="downloadVideo('${format.format_id}')" class="download-btn">
-                        <i class="fas fa-download"></i> تحميل
-                    </button>
+                    <div class="format-details">
+                        <div class="format-quality">${format.quality}</div>
+                        <div class="format-extension">${format.ext.toUpperCase()}</div>
+                        <div class="format-size">${format.filesize}</div>
+                    </div>
+                    <div class="format-note">${format.note}</div>
                 `;
                 
                 formatsList.appendChild(formatDiv);
@@ -200,99 +298,61 @@
             showVideoInfo();
         }
 
-        function downloadVideo(formatId) {
-            if (!currentVideoUrl) {
-                showError('لا يوجد رابط فيديو صالح');
+        function downloadFile(formatType) {
+            if (!currentVideoId || !currentVideoTitle) {
+                showError('لا توجد معلومات فيديو متاحة');
                 return;
             }
 
-            console.log('Starting download for format:', formatId);
-            console.log('Video URL:', currentVideoUrl);
+            // Create safe filename
+            const safeTitle = currentVideoTitle.replace(/[^a-zA-Z0-9\u0600-\u06FF\s\-_]/g, '').substring(0, 50);
+            const extension = formatType === 'audio' ? 'mp3' : 'mp4';
+            const filename = formatType === 'audio' ? `${safeTitle}.mp3` : `${safeTitle}_${formatType}.mp4`;
 
-            // إظهار رسالة بدء التحميل
-            showSuccess('جاري بدء التحميل...');
-            
-            // إنشاء رابط تحميل مباشر
-            const downloadUrl = `/download`;
-            
-            // إنشاء iframe مخفي للتحميل
-            const iframe = document.createElement('iframe');
-            iframe.style.display = 'none';
-            iframe.name = 'downloadFrame';
-            
-            // إنشاء form وإرساله للـ iframe
-            const form = document.createElement('form');
-            form.method = 'POST';
-            form.action = downloadUrl;
-            form.target = 'downloadFrame';
-            
-            // إضافة البيانات
-            const urlInput = document.createElement('input');
-            urlInput.type = 'hidden';
-            urlInput.name = 'url';
-            urlInput.value = currentVideoUrl;
-            
-            const formatInput = document.createElement('input');
-            formatInput.type = 'hidden';
-            formatInput.name = 'format_id';
-            formatInput.value = formatId;
-            
-            // إضافة العناصر للنموذج
-            form.appendChild(urlInput);
-            form.appendChild(formatInput);
-            
-            // إضافة iframe والنموذج للصفحة
-            document.body.appendChild(iframe);
-            document.body.appendChild(form);
-            
-            // إرسال النموذج
-            form.submit();
-            
-            // تنظيف بعد التحميل
-            setTimeout(() => {
-                document.body.removeChild(iframe);
-                document.body.removeChild(form);
-            }, 5000);
-            
-            // إظهار رسالة نجاح
-            showSuccess('تم بدء التحميل! تحقق من شريط التحميل في Chrome');
-            setTimeout(() => hideSuccess(), 5000);
-        }
+            // Show loading on button with truck animation
+            const button = event.target.closest('.download-btn');
+            const originalHTML = button.innerHTML;
+            button.classList.add('downloading');
+            button.innerHTML = '<i class="fas fa-truck"></i><span>🚛 جاري التحميل...</span>';
+            button.disabled = true;
 
-        function showLoadingMessage(message) {
-            const loadingDiv = document.getElementById('loading');
-            loadingDiv.querySelector('p').textContent = message;
-            loadingDiv.classList.remove('hidden');
-        }
-
-        function showSuccess(message) {
-            // إضافة رسالة نجاح مؤقتة
-            const successDiv = document.getElementById('success');
-            if (successDiv) {
-                successDiv.textContent = message;
-                successDiv.classList.remove('hidden');
-                
-                // إزالة الرسالة بعد 3 ثواني
-                setTimeout(() => {
-                    if (successDiv && successDiv.parentNode) {
-                        successDiv.classList.add('hidden');
+            // Fetch the file and trigger download
+            fetch(`/download_direct/${currentVideoId}/${formatType}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('فشل في تحميل الملف');
                     }
-                }, 3000);
-            } else {
-                console.error('Success element not found');
-                // إنشاء رسالة مؤقتة بديلة
-                alert(message);
-            }
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    // Reset button
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('downloading');
+                    button.disabled = false;
+                    
+                    showSuccess('تم تحميل الملف بنجاح! 🎉');
+                })
+                .catch(error => {
+                    // Reset button
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('downloading');
+                    button.disabled = false;
+                    
+                    showError('خطأ في التحميل: ' + error.message);
+                });
         }
 
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-        }
-
+        // Utility functions
         function showLoading() {
             document.getElementById('loading').classList.remove('hidden');
         }
@@ -303,27 +363,26 @@
 
         function showError(message) {
             const errorDiv = document.getElementById('error');
-            if (errorDiv) {
-                errorDiv.textContent = message;
-                errorDiv.classList.remove('hidden');
-            } else {
-                console.error('Error element not found');
-                alert('خطأ: ' + message);
-            }
+            errorDiv.querySelector('.error-message').textContent = message;
+            errorDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                errorDiv.classList.add('hidden');
+            }, 5000);
         }
 
         function hideError() {
-            const errorDiv = document.getElementById('error');
-            if (errorDiv) {
-                errorDiv.classList.add('hidden');
-            }
+            document.getElementById('error').classList.add('hidden');
         }
 
-        function hideSuccess() {
+        function showSuccess(message) {
             const successDiv = document.getElementById('success');
-            if (successDiv) {
+            successDiv.querySelector('.success-message').textContent = message;
+            successDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
                 successDiv.classList.add('hidden');
-            }
+            }, 3000);
         }
 
         function showVideoInfo() {
@@ -334,11 +393,26 @@
             document.getElementById('videoInfo').classList.add('hidden');
         }
 
-        // دعم Enter key
+        // Enter key support
         document.getElementById('videoUrl').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 getVideoInfo();
             }
+        });
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to download buttons
+            const downloadBtns = document.querySelectorAll('.download-btn');
+            downloadBtns.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
         });
     </script>
 </body>
