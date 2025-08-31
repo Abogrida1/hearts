@@ -3,7 +3,10 @@ services:
     name: youtube-downloader
     runtime: python3
     buildCommand: pip install Flask requests yt-dlp
-    startCommand: python app.py
+    startCommand: python3 app.py
+    envVars:
+      - key: PORT
+        value: 10000
     healthCheckPath: /health
     autoDeploy: true
     plan: free 
