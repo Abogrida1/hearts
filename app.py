@@ -391,3 +391,6 @@ if __name__ == '__main__':
     except Exception as e:
         print(f"❌ Error starting app: {e}")
         input("Press Enter to exit...")
+
+# For production servers (Render, Heroku, etc.)
+app = app

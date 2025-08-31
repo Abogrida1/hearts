@@ -1,57 +1,34 @@
 #!/usr/bin/env python3
 """
-Simple Start Script - No Problems!
+YouTube Downloader App - Simple Start
+تطبيق تحميل YouTube - تشغيل بسيط
 """
 
-import os
-import sys
 import subprocess
+import sys
 
 def main():
-    print("🎬 YouTube Info App")
+    print("🚀 YouTube Downloader App")
     print("=" * 30)
     
-    # Try to import Flask
+    # Install requirements
+    print("📦 Installing requirements...")
     try:
-        import flask
-        print("✅ Flask ready!")
-    except ImportError:
-        print("📦 Installing Flask...")
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "Flask==2.3.3"])
-            print("✅ Flask installed!")
-        except:
-            print("❌ Failed to install Flask")
-            input("Press Enter to exit...")
-            return
-    
-    # Try to import requests
-    try:
-        import requests
-        print("✅ Requests ready!")
-    except ImportError:
-        print("📦 Installing Requests...")
-        try:
-            subprocess.check_call([sys.executable, "-m", "pip", "install", "requests==2.31.0"])
-            print("✅ Requests installed!")
-        except:
-            print("❌ Failed to install Requests")
-            input("Press Enter to exit...")
-            return
+        subprocess.check_call([sys.executable, "-m", "pip", "install", "-r", "requirements.txt"])
+        print("✅ Requirements installed!")
+    except:
+        print("⚠️  Some packages may not install correctly")
     
     # Start the app
-    print("\n🚀 Starting app...")
+    print("🌐 Starting app...")
     print("📱 Open: http://localhost:5000")
-    print("⏹️  Stop: Ctrl+C")
+    print("⏹️  Press Ctrl+C to stop")
     print("-" * 30)
     
     try:
         subprocess.run([sys.executable, "app.py"])
     except KeyboardInterrupt:
-        print("\n👋 Stopped")
-    except Exception as e:
-        print(f"❌ Error: {e}")
-        input("Press Enter to exit...")
+        print("\n👋 App stopped")
 
 if __name__ == "__main__":
     main()
