@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎬 تحميل فيديوهات YouTube</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Header Section -->
+        <header class="hero-header">
+            <div class="logo-container">
+                <div class="youtube-logo">
+                    <i class="fab fa-youtube"></i>
+                </div>
+                <h1>تحميل فيديوهات YouTube</h1>
+            </div>
+            <p class="hero-subtitle">قم بلصق رابط الفيديو وسنقوم بتحميله لك مباشرة بدون أدوات خارجية</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Search Section -->
+            <section class="search-section">
+                <div class="search-container">
+                    <div class="search-box">
+                        <i class="fas fa-link search-icon"></i>
+                        <input type="text" id="videoUrl" placeholder="أدخل رابط فيديو YouTube هنا..." />
+                        <button id="getInfoBtn" onclick="getVideoInfo()" class="search-btn">
+                            <i class="fas fa-search"></i>
+                            <span>البحث</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Loading Section -->
+            <section id="loading" class="loading-section hidden">
+                <div class="loading-container">
+                    <div class="loading-animation">
+                        <div class="loading-circle"></div>
+                        <div class="loading-text">جاري البحث عن الفيديو...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Error Section -->
+            <section id="error" class="error-section hidden">
+                <div class="error-container">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="error-message"></div>
+                </div>
+            </section>
+
+            <!-- Success Section -->
+            <section id="success" class="success-section hidden">
+                <div class="success-container">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="success-message"></div>
+                </div>
+            </section>
+
+            <!-- Video Info Section -->
+            <section id="videoInfo" class="video-info-section hidden">
+                <div class="video-card">
+                    <!-- Video Header -->
+                    <div class="video-header">
+                        <div class="thumbnail-container">
+                            <img id="thumbnail" src="" alt="صورة مصغرة للفيديو" class="video-thumbnail" />
+                            <div class="thumbnail-overlay">
+                                <i class="fas fa-play-circle"></i>
+                            </div>
+                        </div>
+                        <div class="video-details">
+                            <h3 id="videoTitle" class="video-title"></h3>
+                            <div class="video-meta">
+                                <div class="author-info">
+                                    <i class="fas fa-user"></i>
+                                    <span id="videoAuthor"></span>
+                                </div>
+                                <div class="video-id">
+                                    <i class="fas fa-fingerprint"></i>
+                                    <span id="videoId"></span>
+                                </div>
+                                <div class="video-duration">
+                                    <i class="fas fa-clock"></i>
+                                    <span id="videoDuration"></span>
+                                </div>
+                                <div class="video-views">
+                                    <i class="fas fa-eye"></i>
+                                    <span id="videoViews"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Formats Section -->
+                    <div class="formats-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-list"></i>
+                            خيارات التحميل المتاحة
+                        </h4>
+                        <div id="formatsList" class="formats-grid"></div>
+                    </div>
+
+                    <!-- Download Buttons Section -->
+                    <div class="download-section">
+                        <h4 class="section-title">
+                            <i class="fas fa-download"></i>
+                            تحميل الفيديو
+                        </h4>
+                        <div class="download-buttons">
+                            <button id="audioDownload" class="download-btn audio-btn" onclick="downloadFile('audio')">
+                                <div class="btn-icon">
+                                    <i class="fas fa-music"></i>
+                                </div>
+                                <div class="btn-content">
+                                    <span class="btn-title">تحميل الصوت</span>
+                                    <span class="btn-subtitle">MP3 عالي الجودة</span>
+                                </div>
+                                <div class="btn-arrow">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                            </button>
+
+                            <button id="video720pDownload" class="download-btn video-btn" onclick="downloadFile('720p')">
+                                <div class="btn-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="btn-content">
+                                    <span class="btn-title">تحميل الفيديو</span>
+                                    <span class="btn-subtitle">720p HD</span>
+                                </div>
+                                <div class="btn-arrow">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                            </button>
+
+                            <button id="video480pDownload" class="download-btn video-btn" onclick="downloadFile('480p')">
+                                <div class="btn-icon">
+                                    <i class="fas fa-video"></i>
+                                </div>
+                                <div class="btn-content">
+                                    <span class="btn-title">تحميل الفيديو</span>
+                                    <span class="btn-subtitle">480p SD</span>
+                                </div>
+                                <div class="btn-arrow">
+                                    <i class="fas fa-truck"></i>
+                                </div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <p>تم التطوير بواسطة <strong>Mohamed Islam</strong></p>
+                    <p>نظام تحميل مدمج بدون أدوات خارجية</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-shield-alt"></i>
+                        آمن 100%
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-bolt"></i>
+                        سريع
+                    </a>
+                    <a href="#" class="footer-link">
+                        <i class="fas fa-mobile-alt"></i>
+                        متجاوب
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        let currentVideoUrl = '';
+        let currentVideoId = '';
+        let currentVideoTitle = '';
+
+        function getVideoInfo() {
+            const url = document.getElementById('videoUrl').value.trim();
+            if (!url) {
+                showError('يرجى إدخال رابط الفيديو');
+                return;
+            }
+
+            // Update button state
+            const button = document.getElementById('getInfoBtn');
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i><span>جاري البحث...</span>';
+            button.disabled = true;
+
+            showLoading();
+            hideError();
+            hideVideoInfo();
+
+            fetch('/get_info', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ url: url })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('خطأ في الخادم: ' + response.status);
+                }
+                return response.json();
+            })
+            .then(data => {
+                hideLoading();
+                button.innerHTML = originalHTML;
+                button.disabled = false;
+                
+                if (data.error) {
+                    showError(data.error);
+                } else {
+                    currentVideoUrl = url;
+                    displayVideoInfo(data);
+                }
+            })
+            .catch(error => {
+                hideLoading();
+                button.innerHTML = originalHTML;
+                button.disabled = false;
+                showError('حدث خطأ في الاتصال: ' + error.message);
+            });
+        }
+
+        function displayVideoInfo(videoInfo) {
+            document.getElementById('thumbnail').src = videoInfo.thumbnail;
+            document.getElementById('videoTitle').textContent = videoInfo.title;
+            document.getElementById('videoAuthor').textContent = videoInfo.author;
+            document.getElementById('videoId').textContent = videoInfo.video_id;
+            
+            // Display duration
+            if (videoInfo.duration) {
+                const minutes = Math.floor(videoInfo.duration / 60);
+                const seconds = videoInfo.duration % 60;
+                document.getElementById('videoDuration').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+            } else {
+                document.getElementById('videoDuration').textContent = 'غير معروف';
+            }
+            
+            // Display view count
+            if (videoInfo.view_count) {
+                const views = videoInfo.view_count.toLocaleString('ar-EG');
+                document.getElementById('videoViews').textContent = `${views} مشاهدة`;
+            } else {
+                document.getElementById('videoViews').textContent = 'غير معروف';
+            }
+
+            // Store video info globally
+            currentVideoId = videoInfo.video_id;
+            currentVideoTitle = videoInfo.title;
+
+            const formatsList = document.getElementById('formatsList');
+            formatsList.innerHTML = '';
+
+            videoInfo.formats.forEach(format => {
+                const formatDiv = document.createElement('div');
+                formatDiv.className = 'format-card';
+                
+                formatDiv.innerHTML = `
+                    <div class="format-icon">
+                        <i class="fas fa-${format.type === 'audio' ? 'music' : 'video'}"></i>
+                    </div>
+                    <div class="format-details">
+                        <div class="format-quality">${format.quality}</div>
+                        <div class="format-extension">${format.ext.toUpperCase()}</div>
+                        <div class="format-size">${format.filesize}</div>
+                    </div>
+                    <div class="format-note">${format.note}</div>
+                `;
+                
+                formatsList.appendChild(formatDiv);
+            });
+
+            showVideoInfo();
+        }
+
+        function downloadFile(formatType) {
+            if (!currentVideoId || !currentVideoTitle) {
+                showError('لا توجد معلومات فيديو متاحة');
+                return;
+            }
+
+            // Create safe filename
+            const safeTitle = currentVideoTitle.replace(/[^a-zA-Z0-9\u0600-\u06FF\s\-_]/g, '').substring(0, 50);
+            const extension = formatType === 'audio' ? 'mp3' : 'mp4';
+            const filename = formatType === 'audio' ? `${safeTitle}.mp3` : `${safeTitle}_${formatType}.mp4`;
+
+            // Show loading on button with truck animation
+            const button = event.target.closest('.download-btn');
+            const originalHTML = button.innerHTML;
+            button.classList.add('downloading');
+            button.innerHTML = '<i class="fas fa-truck"></i><span>🚛 جاري التحميل...</span>';
+            button.disabled = true;
+
+            // Fetch the file and trigger download
+            fetch(`/download_direct/${currentVideoId}/${formatType}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('فشل في تحميل الملف');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    // Reset button
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('downloading');
+                    button.disabled = false;
+                    
+                    showSuccess('تم تحميل الملف بنجاح! 🎉');
+                })
+                .catch(error => {
+                    // Reset button
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('downloading');
+                    button.disabled = false;
+                    
+                    showError('خطأ في التحميل: ' + error.message);
+                });
+        }
+
+        // Utility functions
+        function showLoading() {
+            document.getElementById('loading').classList.remove('hidden');
+        }
+
+        function hideLoading() {
+            document.getElementById('loading').classList.add('hidden');
+        }
+
+        function showError(message) {
+            const errorDiv = document.getElementById('error');
+            errorDiv.querySelector('.error-message').textContent = message;
+            errorDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                errorDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+        function hideError() {
+            document.getElementById('error').classList.add('hidden');
+        }
+
+        function showSuccess(message) {
+            const successDiv = document.getElementById('success');
+            successDiv.querySelector('.success-message').textContent = message;
+            successDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                successDiv.classList.add('hidden');
+            }, 3000);
+        }
+
+        function showVideoInfo() {
+            document.getElementById('videoInfo').classList.remove('hidden');
+        }
+
+        function hideVideoInfo() {
+            document.getElementById('videoInfo').classList.add('hidden');
+        }
+
+        // Enter key support
+        document.getElementById('videoUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                getVideoInfo();
+            }
+        });
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add hover effects to download buttons
+            const downloadBtns = document.querySelectorAll('.download-btn');
+            downloadBtns.forEach(btn => {
+                btn.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
